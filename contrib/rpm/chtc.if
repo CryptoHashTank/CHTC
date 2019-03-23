@@ -1,0 +1,157 @@
+
+## <summary>policy for chtc</summary>
+
+
+########################################
+## <summary>
+##	Transition to chtc.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`chtc_domtrans',`
+	gen_require(`
+		type chtc_t, chtc_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, chtc_exec_t, chtc_t)
+')
+
+
+########################################
+## <summary>
+##	Execute chtc server in the chtc domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`chtc_initrc_domtrans',`
+	gen_require(`
+		type chtc_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, chtc_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search chtc lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`chtc_search_lib',`
+	gen_require(`
+		type chtc_var_lib_t;
+	')
+
+	allow $1 chtc_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read chtc lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`chtc_read_lib_files',`
+	gen_require(`
+		type chtc_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, chtc_var_lib_t, chtc_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage chtc lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`chtc_manage_lib_files',`
+	gen_require(`
+		type chtc_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, chtc_var_lib_t, chtc_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage chtc lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`chtc_manage_lib_dirs',`
+	gen_require(`
+		type chtc_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, chtc_var_lib_t, chtc_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a chtc environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`chtc_admin',`
+	gen_require(`
+		type chtc_t;
+		type chtc_initrc_exec_t;
+		type chtc_var_lib_t;
+	')
+
+	allow $1 chtc_t:process { ptrace signal_perms };
+	ps_process_pattern($1, chtc_t)
+
+	chtc_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 chtc_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, chtc_var_lib_t)
+
+')
+

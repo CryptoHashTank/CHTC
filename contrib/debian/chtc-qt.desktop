@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CHTC
+Comment=CHTC P2P Cryptocurrency
+Comment[fr]=CHTC, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=CHTC, eşten eşe kriptografik sanal para birimi
+Exec=chtc-qt %u
+Terminal=false
+Type=Application
+Icon=chtc128
+MimeType=x-scheme-handler/chtc;
+Categories=Office;Finance;

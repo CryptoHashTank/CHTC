@@ -1,0 +1,81 @@
+policy_module(chtc, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type chtc_t;
+type chtc_exec_t;
+init_daemon_domain(chtc_t, chtc_exec_t)
+
+permissive chtc_t;
+
+type chtc_initrc_exec_t;
+init_script_file(chtc_initrc_exec_t)
+
+type chtc_conf_t;
+files_type(chtc_conf_t)
+
+type chtc_var_lib_t;
+files_type(chtc_var_lib_t)
+
+type chtc_var_run_t;
+files_type(chtc_var_run_t)
+
+type chtc_port_t;
+corenet_port(chtc_port_t)
+
+########################################
+#
+# chtc local policy
+#
+allow chtc_t self:process { fork };
+
+allow chtc_t self:fifo_file rw_fifo_file_perms;
+allow chtc_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(chtc_t, chtc_conf_t, chtc_conf_t)
+manage_files_pattern(chtc_t, chtc_conf_t, chtc_conf_t)
+
+manage_dirs_pattern(chtc_t, chtc_var_lib_t, chtc_var_lib_t)
+manage_files_pattern(chtc_t, chtc_var_lib_t, chtc_var_lib_t)
+files_var_lib_filetrans(chtc_t, chtc_var_lib_t, { dir file })
+
+manage_dirs_pattern(chtc_t, chtc_var_run_t, chtc_var_run_t)
+manage_files_pattern(chtc_t, chtc_var_run_t, chtc_var_run_t)
+
+sysnet_dns_name_resolve(chtc_t)
+corenet_all_recvfrom_unlabeled(chtc_t)
+
+allow chtc_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(chtc_t)
+corenet_tcp_sendrecv_generic_node(chtc_t)
+corenet_tcp_sendrecv_all_ports(chtc_t)
+corenet_tcp_bind_generic_node(chtc_t)
+
+gen_require(`
+    type chtc_port_t;
+')
+allow chtc_t chtc_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type chtc_port_t;
+')
+allow chtc_t chtc_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(chtc_t)
+
+files_read_etc_files(chtc_t)
+
+miscfiles_read_localization(chtc_t)
+
+sysnet_dns_name_resolve(chtc_t)
+
+allow chtc_t chtc_exec_t:file execute_no_trans;
+allow chtc_t self:process setsched;
+corecmd_exec_ls(chtc_t)
+corenet_tcp_connect_http_port(chtc_t)
+dev_read_urand(chtc_t)
+fs_getattr_xattr_fs(chtc_t)
+kernel_read_system_state(chtc_t)
