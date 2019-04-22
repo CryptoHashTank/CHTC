@@ -56,7 +56,6 @@ void CLightWorker::ThreadLightZCHTCSimplified() {
                                 genWit.getFilter(),
                                 accumulator,
                                 witness,
-                                100,
                                 nMintsAdded,
                                 strFailReason,
                                 ret,

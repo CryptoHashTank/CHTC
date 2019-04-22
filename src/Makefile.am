@@ -77,10 +77,6 @@ endif
 # chtc core #
 BITCOIN_CORE_H = \
   activemasternode.h \
-  accumulators.h \
-  accumulatorcheckpoints.h \
-  accumulatorcheckpoints.json.h \
-  accumulatormap.h \
   addrman.h \
   alert.h \
   allocators.h \
@@ -104,15 +100,13 @@ BITCOIN_CORE_H = \
   compat/sanity.h \
   compressor.h \
   primitives/block.h \
-  primitives/deterministicmint.h \
   primitives/transaction.h \
-  primitives/zerocoin.h \
   core_io.h \
   crypter.h \
   denomination_functions.h \
   obfuscation.h \
   obfuscation-relay.h \
-  db.h \
+  wallet/db.h \
   hash.h \
   httprpc.h \
   httpserver.h \
@@ -135,7 +129,6 @@ BITCOIN_CORE_H = \
   masternodeconfig.h \
   merkleblock.h \
   miner.h \
-  mintpool.h \
   mruset.h \
   netbase.h \
   net.h \
@@ -178,12 +171,20 @@ BITCOIN_CORE_H = \
   utiltime.h \
   validationinterface.h \
   version.h \
-  wallet.h \
-  wallet_ismine.h \
-  walletdb.h \
+  wallet/wallet.h \
+  wallet/wallet_ismine.h \
+  wallet/walletdb.h \
   zchtcchain.h \
-  zchtctracker.h \
-  zchtcwallet.h \
+  zchtc/accumulators.h \
+  zchtc/accumulatorcheckpoints.h \
+  zchtc/accumulatorcheckpoints.json.h \
+  zchtc/accumulatormap.h \
+  zchtc/deterministicmint.h \
+  zchtc/mintpool.h \
+  zchtc/witness.h \
+  zchtc/zerocoin.h \
+  zchtc/zchtctracker.h \
+  zchtc/zchtcwallet.h \
   genwit.h \
   concurrentqueue.h \
   lightzchtcthread.h \
@@ -256,7 +257,7 @@ libbitcoin_wallet_a_SOURCES = \
   denomination_functions.cpp \
   obfuscation.cpp \
   obfuscation-relay.cpp \
-  db.cpp \
+  wallet/db.cpp \
   crypter.cpp \
   swifttx.cpp \
   masternode.cpp \
@@ -265,17 +266,19 @@ libbitcoin_wallet_a_SOURCES = \
   masternode-sync.cpp \
   masternodeconfig.cpp \
   masternodeman.cpp \
-  mintpool.cpp \
-  rpcdump.cpp \
-  primitives/deterministicmint.cpp \
-  primitives/zerocoin.cpp \
-  rpcwallet.cpp \
+  wallet/rpcdump.cpp \
+  wallet/rpcwallet.cpp \
   kernel.cpp \
-  wallet.cpp \
-  wallet_ismine.cpp \
-  walletdb.cpp \
-  zchtcwallet.cpp \
-  zchtctracker.cpp \
+  wallet/wallet.cpp \
+  wallet/wallet_ismine.cpp \
+  wallet/walletdb.cpp \
+  zchtc/deterministicmint.cpp \
+  zchtc/zerocoin.cpp \
+  zchtc/accumulators.cpp \
+  zchtc/mintpool.cpp \
+  zchtc/witness.cpp \
+  zchtc/zchtcwallet.cpp \
+  zchtc/zchtctracker.cpp \
   stakeinput.cpp \
   genwit.cpp \
   lightzchtcthread.cpp \
@@ -347,9 +350,9 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
-  accumulators.cpp \
-  accumulatorcheckpoints.cpp \
-  accumulatormap.cpp \
+  zchtc/accumulators.cpp \
+  zchtc/accumulatorcheckpoints.cpp \
+  zchtc/accumulatormap.cpp \
   allocators.cpp \
   amount.cpp \
   base58.cpp \
@@ -358,9 +361,9 @@ libbitcoin_common_a_SOURCES = \
   coins.cpp \
   compressor.cpp \
   primitives/block.cpp \
-  primitives/deterministicmint.cpp \
+  zchtc/deterministicmint.cpp \
   primitives/transaction.cpp \
-  primitives/zerocoin.cpp \
+  zchtc/zerocoin.cpp \
   core_read.cpp \
   core_write.cpp \
   hash.cpp \

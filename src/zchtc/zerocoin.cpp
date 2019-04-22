@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <streams.h>
-#include "primitives/zerocoin.h"
+#include "zerocoin.h"
 #include "hash.h"
 #include "util.h"
 #include "utilstrencodings.h"
@@ -76,3 +76,41 @@ int CZerocoinSpendReceipt::GetNeededSpends()
 {
     return nNeededSpends;
 }
+
+
+int GetWrapppedSerialInflation(libzerocoin::CoinDenomination denom){
+    if(Params().NetworkID() == CBaseChainParams::MAIN) {
+        switch (denom) {
+            case libzerocoin::CoinDenomination::ZQ_ONE:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_FIVE:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_TEN:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_FIFTY:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_ONE_HUNDRED:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_FIVE_HUNDRED:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_ONE_THOUSAND:
+                return 0;
+            case libzerocoin::CoinDenomination::ZQ_FIVE_THOUSAND:
+                return 0;
+            default:
+                throw std::runtime_error("GetWrapSerialInflation :: Invalid denom");
+        }
+    }else{
+        // Testnet/Regtest is ok.
+        return 0;
+    }
+}
+
+int64_t GetWrapppedSerialInflationAmount(){
+    int64_t amount = 0;
+    for (auto& denom : libzerocoin::zerocoinDenomList){
+        amount += GetWrapppedSerialInflation(denom) * libzerocoin::ZerocoinDenominationToAmount(denom);
+    }
+    return amount;
+}
+

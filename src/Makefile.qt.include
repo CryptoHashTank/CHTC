@@ -8,37 +8,38 @@ EXTRA_LIBRARIES += qt/libbitcoinqt.a
 # chtc qt core #
 QT_TS = \
   qt/locale/chtc_bg.ts \
-  qt/locale/chtc_ca.ts \
-  qt/locale/chtc_cs.ts \
-  qt/locale/chtc_da.ts \
-  qt/locale/chtc_de.ts \
-  qt/locale/chtc_en.ts \
-  qt/locale/chtc_en_US.ts \
-  qt/locale/chtc_eo.ts \
-  qt/locale/chtc_es.ts \
-  qt/locale/chtc_es_ES.ts \
-  qt/locale/chtc_fi.ts \
-  qt/locale/chtc_fr_FR.ts \
-  qt/locale/chtc_hi_IN.ts \
-  qt/locale/chtc_hr.ts \
-  qt/locale/chtc_hr_HR.ts \
-  qt/locale/chtc_it.ts \
-  qt/locale/chtc_ja.ts \
-  qt/locale/chtc_ko_KR.ts \
-  qt/locale/chtc_lt_LT.ts \
-  qt/locale/chtc_nl.ts \
-  qt/locale/chtc_pl.ts \
-  qt/locale/chtc_pt.ts \
-  qt/locale/chtc_pt_BR.ts \
-  qt/locale/chtc_ro_RO.ts \
-  qt/locale/chtc_ru.ts \
-  qt/locale/chtc_sk.ts \
-  qt/locale/chtc_sv.ts \
-  qt/locale/chtc_tr.ts \
-  qt/locale/chtc_uk.ts \
-  qt/locale/chtc_vi.ts \
-  qt/locale/chtc_zh_CN.ts \
-  qt/locale/chtc_zh_TW.ts
+   qt/locale/chtc_ca.ts \
+   qt/locale/chtc_cs.ts \
+   qt/locale/chtc_da.ts \
+   qt/locale/chtc_de.ts \
+   qt/locale/chtc_en.ts \
+   qt/locale/chtc_en_GB.ts \
+   qt/locale/chtc_en_US.ts \
+   qt/locale/chtc_eo.ts \
+   qt/locale/chtc_es.ts \
+   qt/locale/chtc_es_ES.ts \
+   qt/locale/chtc_fi.ts \
+   qt/locale/chtc_fr_FR.ts \
+   qt/locale/chtc_hi_IN.ts \
+   qt/locale/chtc_hr.ts \
+   qt/locale/chtc_hr_HR.ts \
+   qt/locale/chtc_it.ts \
+   qt/locale/chtc_ja.ts \
+   qt/locale/chtc_ko_KR.ts \
+   qt/locale/chtc_lt_LT.ts \
+   qt/locale/chtc_nl.ts \
+   qt/locale/chtc_pl.ts \
+   qt/locale/chtc_pt.ts \
+   qt/locale/chtc_pt_BR.ts \
+   qt/locale/chtc_ro_RO.ts \
+   qt/locale/chtc_ru.ts \
+   qt/locale/chtc_sk.ts \
+   qt/locale/chtc_sv.ts \
+   qt/locale/chtc_tr.ts \
+   qt/locale/chtc_uk.ts \
+   qt/locale/chtc_vi.ts \
+   qt/locale/chtc_zh_CN.ts \
+   qt/locale/chtc_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -362,10 +363,7 @@ RES_IMAGES = \
   qt/res/images/upArrow_small.png \
   qt/res/images/leftArrow_small_dark.png \
   qt/res/images/rightArrow_small_dark.png \
-  qt/res/images/qtreeview_selected.png \
-  qt/res/images/walletFrame.png \
-  qt/res/images/walletFrame_bg.png \
-  qt/res/images/walletFrame_bg.png
+  qt/res/images/qtreeview_selected.png
 
 RES_CSS = \
   qt/res/css/default.css

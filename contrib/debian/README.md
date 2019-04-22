@@ -14,7 +14,7 @@ To install:
 	sudo update-desktop-database
 
 If you build yourself, you will either need to modify the paths in
-the .desktop file or copy or symlink your chtcqt binary to `/usr/bin`
+the .desktop file or copy or symlink your chtc-qt binary to `/usr/bin`
 and the `../../share/pixmaps/chtc128.png` to `/usr/share/pixmaps`
 
 chtc-qt.protocol (KDE)

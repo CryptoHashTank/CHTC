@@ -58,6 +58,8 @@ QT_TRANSLATE_NOOP("chtc-core", ""
 QT_TRANSLATE_NOOP("chtc-core", ""
 "Enable SwiftX, show confirmations for locked transactions (bool, default: %s)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
+"Enable automatic Zerocoin minting from specific addresses (0-1, default: %u)"),
+QT_TRANSLATE_NOOP("chtc-core", ""
 "Enable automatic wallet backups triggered after each zCHTC minting (0-1, "
 "default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
@@ -134,8 +136,13 @@ QT_TRANSLATE_NOOP("chtc-core", ""
 "Maintain a full transaction index, used by the getrawtransaction rpc call "
 "(default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
+"Maximum average size of an index occurrence in the block spam filter "
+"(default: %u)"),
+QT_TRANSLATE_NOOP("chtc-core", ""
 "Maximum size of data in data carrier transactions we relay and mine "
 "(default: %u)"),
+QT_TRANSLATE_NOOP("chtc-core", ""
+"Maximum size of the list of indexes in the block spam filter (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
 "Maximum total fees to use in a single wallet transaction, setting too low "
 "may abort large transactions (default: %s)"),
@@ -162,6 +169,9 @@ QT_TRANSLATE_NOOP("chtc-core", ""
 QT_TRANSLATE_NOOP("chtc-core", ""
 "Set maximum size of high-priority/low-fee transactions in bytes (default: %d)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
+"Set the number of included blocks to precompute per cycle. (minimum: %d) "
+"(maximum: %d) (default: %d)"),
+QT_TRANSLATE_NOOP("chtc-core", ""
 "Set the number of script verification threads (%u to %d, 0 = auto, <0 = "
 "leave that many cores free, default: %d)"),
 QT_TRANSLATE_NOOP("chtc-core", ""
@@ -184,6 +194,11 @@ QT_TRANSLATE_NOOP("chtc-core", ""
 QT_TRANSLATE_NOOP("chtc-core", ""
 "SwiftX requires inputs with at least 6 confirmations, you might need to wait "
 "a few minutes and try again."),
+QT_TRANSLATE_NOOP("chtc-core", ""
+"The block database contains a block which appears to be from the future. "
+"This may be due to your computer's date and time being set incorrectly. Only "
+"rebuild the block database if you are sure that your computer's date and "
+"time are correct"),
 QT_TRANSLATE_NOOP("chtc-core", ""
 "This is a pre-release test build - use at your own risk - do not use for "
 "staking or merchant applications!"),
@@ -247,6 +262,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("chtc-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),
 QT_TRANSLATE_NOOP("chtc-core", "Accept public REST requests (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "Add a node to connect to and attempt to keep the connection open"),
+QT_TRANSLATE_NOOP("chtc-core", "Adding Wrapped Serials supply..."),
 QT_TRANSLATE_NOOP("chtc-core", "Allow DNS lookups for -addnode, -seednode and -connect"),
 QT_TRANSLATE_NOOP("chtc-core", "Already have that input."),
 QT_TRANSLATE_NOOP("chtc-core", "Always query for peer addresses via DNS lookup (default: %u)"),
@@ -265,6 +281,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Cannot resolve -externalip address: '%s'"),
 QT_TRANSLATE_NOOP("chtc-core", "Cannot resolve -whitebind address: '%s'"),
 QT_TRANSLATE_NOOP("chtc-core", "Cannot write default address"),
 QT_TRANSLATE_NOOP("chtc-core", "CoinSpend: Accumulator witness does not verify"),
+QT_TRANSLATE_NOOP("chtc-core", "CoinSpend: failed check"),
 QT_TRANSLATE_NOOP("chtc-core", "Collateral not valid."),
 QT_TRANSLATE_NOOP("chtc-core", "Connect only to the specified node(s)"),
 QT_TRANSLATE_NOOP("chtc-core", "Connect through SOCKS5 proxy"),
@@ -275,6 +292,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Copyright (C) 2014-%i The Dash Core Developers")
 QT_TRANSLATE_NOOP("chtc-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
 QT_TRANSLATE_NOOP("chtc-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("chtc-core", "Could not parse masternode.conf"),
+QT_TRANSLATE_NOOP("chtc-core", "Couldn't generate the accumulator witness"),
 QT_TRANSLATE_NOOP("chtc-core", "Debugging/Testing options:"),
 QT_TRANSLATE_NOOP("chtc-core", "Delete blockchain folders and resync from scratch"),
 QT_TRANSLATE_NOOP("chtc-core", "Disable OS notifications for incoming transactions (default: %u)"),
@@ -286,6 +304,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Do not load the wallet and disable wallet RPC ca
 QT_TRANSLATE_NOOP("chtc-core", "Do you want to rebuild the block database now?"),
 QT_TRANSLATE_NOOP("chtc-core", "Done loading"),
 QT_TRANSLATE_NOOP("chtc-core", "Enable automatic Zerocoin minting (0-1, default: %u)"),
+QT_TRANSLATE_NOOP("chtc-core", "Enable precomputation of zCHTC spends and stakes (0-1, default %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "Enable publish hash block in <address>"),
 QT_TRANSLATE_NOOP("chtc-core", "Enable publish hash transaction (locked via SwiftX) in <address>"),
 QT_TRANSLATE_NOOP("chtc-core", "Enable publish hash transaction in <address>"),
@@ -317,7 +336,6 @@ QT_TRANSLATE_NOOP("chtc-core", "Error: Wallet locked, unable to create transacti
 QT_TRANSLATE_NOOP("chtc-core", "Error: You already have pending entries in the Obfuscation pool"),
 QT_TRANSLATE_NOOP("chtc-core", "Failed to calculate accumulator checkpoint"),
 QT_TRANSLATE_NOOP("chtc-core", "Failed to create mint"),
-QT_TRANSLATE_NOOP("chtc-core", "Failed to deserialize"),
 QT_TRANSLATE_NOOP("chtc-core", "Failed to find Zerocoins in wallet.dat"),
 QT_TRANSLATE_NOOP("chtc-core", "Failed to listen on any port. Use -listen=0 if you want this."),
 QT_TRANSLATE_NOOP("chtc-core", "Failed to parse host:port string"),
@@ -413,6 +431,9 @@ QT_TRANSLATE_NOOP("chtc-core", "RPC server options:"),
 QT_TRANSLATE_NOOP("chtc-core", "Randomly drop 1 of every <n> network messages"),
 QT_TRANSLATE_NOOP("chtc-core", "Randomly fuzz 1 of every <n> network messages"),
 QT_TRANSLATE_NOOP("chtc-core", "Rebuild block chain index from current blk000??.dat files"),
+QT_TRANSLATE_NOOP("chtc-core", "Recalculating CHTC supply..."),
+QT_TRANSLATE_NOOP("chtc-core", "Recalculating minted ZCHTC..."),
+QT_TRANSLATE_NOOP("chtc-core", "Recalculating spent ZCHTC..."),
 QT_TRANSLATE_NOOP("chtc-core", "Receive and display P2P network alerts (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "Reindex the CHTC and zCHTC money supply statistics"),
 QT_TRANSLATE_NOOP("chtc-core", "Reindex the accumulator database"),
@@ -458,6 +479,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Stop running after importing blocks from disk (d
 QT_TRANSLATE_NOOP("chtc-core", "Submitted following entries to masternode: %u / %d"),
 QT_TRANSLATE_NOOP("chtc-core", "Submitted to masternode, waiting for more entries ( %u / %d ) %s"),
 QT_TRANSLATE_NOOP("chtc-core", "Submitted to masternode, waiting in queue %s"),
+QT_TRANSLATE_NOOP("chtc-core", "Support the zerocoin light node protocol (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "SwiftX options:"),
 QT_TRANSLATE_NOOP("chtc-core", "Synchronization failed"),
 QT_TRANSLATE_NOOP("chtc-core", "Synchronization finished"),
@@ -468,8 +490,6 @@ QT_TRANSLATE_NOOP("chtc-core", "Synchronizing masternodes..."),
 QT_TRANSLATE_NOOP("chtc-core", "Synchronizing sporks..."),
 QT_TRANSLATE_NOOP("chtc-core", "Syncing zCHTC wallet..."),
 QT_TRANSLATE_NOOP("chtc-core", "The coin spend has been used"),
-QT_TRANSLATE_NOOP("chtc-core", "The new spend coin transaction did not verify"),
-QT_TRANSLATE_NOOP("chtc-core", "The selected mint coin is an invalid coin"),
 QT_TRANSLATE_NOOP("chtc-core", "The transaction did not verify"),
 QT_TRANSLATE_NOOP("chtc-core", "This help message"),
 QT_TRANSLATE_NOOP("chtc-core", "This is experimental software."),
@@ -489,7 +509,6 @@ QT_TRANSLATE_NOOP("chtc-core", "Transaction not valid."),
 QT_TRANSLATE_NOOP("chtc-core", "Transaction too large for fee policy"),
 QT_TRANSLATE_NOOP("chtc-core", "Transaction too large"),
 QT_TRANSLATE_NOOP("chtc-core", "Transmitting final transaction."),
-QT_TRANSLATE_NOOP("chtc-core", "Try to spend with a higher security level to include more coins"),
 QT_TRANSLATE_NOOP("chtc-core", "Trying to spend an already spent serial #, try again."),
 QT_TRANSLATE_NOOP("chtc-core", "Unable to bind to %s on this computer (bind returned error %s)"),
 QT_TRANSLATE_NOOP("chtc-core", "Unable to find transaction containing mint"),
@@ -501,6 +520,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Upgrade wallet to latest format"),
 QT_TRANSLATE_NOOP("chtc-core", "Use UPnP to map the listening port (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "Use UPnP to map the listening port (default: 1 when listening)"),
 QT_TRANSLATE_NOOP("chtc-core", "Use a custom max chain reorganization depth (default: %u)"),
+QT_TRANSLATE_NOOP("chtc-core", "Use block spam filter (default: %u)"),
 QT_TRANSLATE_NOOP("chtc-core", "Use the test network"),
 QT_TRANSLATE_NOOP("chtc-core", "User Agent comment (%s) contains unsafe characters."),
 QT_TRANSLATE_NOOP("chtc-core", "Username for JSON-RPC connections"),
@@ -508,7 +528,6 @@ QT_TRANSLATE_NOOP("chtc-core", "Value is below the smallest available denominati
 QT_TRANSLATE_NOOP("chtc-core", "Value more than Obfuscation pool maximum allows."),
 QT_TRANSLATE_NOOP("chtc-core", "Verifying blocks..."),
 QT_TRANSLATE_NOOP("chtc-core", "Verifying wallet..."),
-QT_TRANSLATE_NOOP("chtc-core", "Version 1 zCHTC require a security level of 100 to successfully spend."),
 QT_TRANSLATE_NOOP("chtc-core", "Wallet %s resides outside data directory %s"),
 QT_TRANSLATE_NOOP("chtc-core", "Wallet is locked."),
 QT_TRANSLATE_NOOP("chtc-core", "Wallet needed to be rewritten: restart CHTC Core to complete"),
@@ -526,6 +545,7 @@ QT_TRANSLATE_NOOP("chtc-core", "Your transaction was accepted into the pool!"),
 QT_TRANSLATE_NOOP("chtc-core", "Zapping all transactions from wallet..."),
 QT_TRANSLATE_NOOP("chtc-core", "ZeroMQ notification options:"),
 QT_TRANSLATE_NOOP("chtc-core", "Zerocoin options:"),
+QT_TRANSLATE_NOOP("chtc-core", "could not get lock on cs_spendcache"),
 QT_TRANSLATE_NOOP("chtc-core", "isValid(): Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("chtc-core", "on startup"),
 QT_TRANSLATE_NOOP("chtc-core", "wallet.dat corrupt, salvage failed"),

@@ -7,15 +7,15 @@
 #include "chainparams.h"
 #include "main.h"
 #include "txdb.h"
-#include "primitives/deterministicmint.h"
+#include "zchtc/deterministicmint.h"
 #include "key.h"
-#include "accumulatorcheckpoints.h"
+#include "zchtc/accumulatorcheckpoints.h"
 #include "libzerocoin/bignum.h"
 #include <boost/test/unit_test.hpp>
 #include <iostream>
-#include <accumulators.h>
-#include "wallet.h"
-#include "zchtcwallet.h"
+#include <zchtc/accumulators.h>
+#include "wallet/wallet.h"
+#include "zchtc/zchtcwallet.h"
 #include "zchtcchain.h"
 
 using namespace libzerocoin;
