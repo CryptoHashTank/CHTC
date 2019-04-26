@@ -1719,9 +1719,9 @@ Please check the address and try again.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/CryptoDev-Project/CryptoDev-Project-translations</source>
+https://www.transifex.com/CryptoHashTank/CryptoHashTank-translations</source>
         <translation>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/CryptoDev-Project/CryptoDev-Project-translations</translation>
+https://www.transifex.com/CryptoHashTank/CryptoHashTank-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

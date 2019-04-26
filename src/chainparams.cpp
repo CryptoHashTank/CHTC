@@ -56,12 +56,13 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
     (    0, uint256("000004281dc68d0720774902bf403ff14f3a869f8d89c940d096395d3304ade7"))
-    (   25, uint256("000001a71752ed5c366aeb6bfee472dfc6cba4a8e5f4c9b68335fba309f7075d"));
-
+    (   25, uint256("000001a71752ed5c366aeb6bfee472dfc6cba4a8e5f4c9b68335fba309f7075d"))
+    ( 7930, uint256("1c82d1c780a0a957b7ec5a7729f7e9742de1f05477b10d6db51bbeebc392d00b"))
+    (62573, uint256("4d7ef4714094af9cca1c7d1c7642e2c2eb2d100bcd26287d8a4c2b2a20716755"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1553334975, // * UNIX timestamp of last checkpoint block
-    26,    // * total number of transactions between genesis and last checkpoint
+    1555932704, // * UNIX timestamp of last checkpoint block
+    126707,     // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
 };
@@ -125,7 +126,7 @@ public:
         nRejectBlockOutdatedMajority = 10260; // 95%
         nToCheckBlockUpgradeMajority = 10800; // Approximate expected amount of blocks in 7 days (1440*7.5)
         nMinerThreads = 0;
-        nTargetSpacing = 1 * 60; // CHTC: 1 day
+        nTargetTimespan = 1 * 60; // CHTC: 1 day
         nTargetSpacing = 1 * 60;  // CHTC: 1 minute
         nMaturity = 30;
         nMasternodeCountDrift = 20;
@@ -143,8 +144,13 @@ public:
         nBlockEnforceInvalidUTXO = 999999999; //Start enforcing the invalid UTXO's
         nInvalidAmountFiltered = 0*COIN; //Amount of invalid coins filtered through exchanges, that should be considered valid
         nBlockZerocoinV2 = 220; //!> The block that zerocoin v2 becomes active - roughly Tuesday, May 8, 2018 4:00:00 AM GMT
+        nBlockDoubleAccumulated = 10;
         nEnforceNewSporkKey = 1553326743; //!> Sporks signed after (GMT): Tuesday, May 1, 2018 7:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1553326743; //!> Fully reject old spork key after (GMT): Friday, June 1, 2018 12:00:00 AM
+
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
+        nSupplyBeforeFakeSerial = 0 * COIN;   // zerocoin supply at block nFakeSerialBlockheightEnd
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -192,16 +198,17 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = false;
+        fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = true;
+        fSkipProofOfWorkCheck = false;
         fTestnetToBeDeprecatedFieldRPC = false;
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
+        nBudgetCycleBlocks = 43200; //!< Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
         strSporkKey = "04e8236ee235dab65ddd4f8690294e2bd8d3ace2a3a045f4270a40975e61063daae2666ade83a7490febd01f6885dedcd992e896059f314beb3897e132913736bd";
         strSporkKeyOld = "04e8236ee235dab65ddd4f8690294e2bd8d3ace2a3a045f4270a40975e61063daae2666ade83a7490febd01f6885dedcd992e896059f314beb3897e132913736bd";
         strObfuscationPoolDummyAddress = "CTaWAjtKXR4odNJ3z66xStWrKEx4S4g8DL";
@@ -252,7 +259,7 @@ public:
         nRejectBlockOutdatedMajority = 5472; // 95%
         nToCheckBlockUpgradeMajority = 5760; // 4 days
         nMinerThreads = 0;
-        nTargetSpacing = 1 * 60; // CHTC: 1 day
+        nTargetTimespan = 1 * 60; // CHTC: 1 day
         nTargetSpacing = 1 * 60;  // CHTC: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
@@ -271,6 +278,10 @@ public:
         nEnforceNewSporkKey = 1552132554; //!> Sporks signed after Wednesday, March 21, 2018 4:00:00 AM GMT must use the new spork key
         nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
 
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
+        nSupplyBeforeFakeSerial = 0;
+
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1552132554;
         genesis.nNonce = 813919;
@@ -281,7 +292,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("chtctseed.cdev.services", "chtctseed.cdev.services"));
-
+        
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet chtc addresses start with 'x' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet chtc script addresses start with '8' or '9'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
@@ -294,7 +305,7 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        fMiningRequiresPeers = false;
+        fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -302,6 +313,7 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions = 2;
+        nBudgetCycleBlocks = 144; //!< Ten cycles per day on testnet
         strSporkKey = "047bcca36ed66a9116cda5424ae92403e615be3f8a6e4a4cb99975a80a957915ec286a79916836e76ecf45474c2b45cac7a718c6b21817c7d1539d79eedc3d3eef";
         strSporkKeyOld = "047bcca36ed66a9116cda5424ae92403e615be3f8a6e4a4cb99975a80a957915ec286a79916836e76ecf45474c2b45cac7a718c6b21817c7d1539d79eedc3d3eef";
         strObfuscationPoolDummyAddress = "y2KMuzX9HjkBAdUpw68UvcVM2TDjSW9QW4";
@@ -351,6 +363,9 @@ public:
         nBlockRecalculateAccumulators = 999999999; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 999999999; //First block that bad serials emerged
         nBlockLastGoodCheckpoint = 999999999; //Last valid accumulator checkpoint
+
+        // Fake Serial Attack
+        nFakeSerialBlockheightEnd = -1;
 
         //! Modify the regtest genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1552132554;

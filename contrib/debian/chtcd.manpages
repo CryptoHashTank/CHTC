@@ -1,2 +1,2 @@
-debian/manpages/chtcd.1
-debian/manpages/chtc.conf.5
+doc/man/chtcd.1
+doc/man/chtc-cli.1

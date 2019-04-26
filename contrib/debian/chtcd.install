@@ -1,2 +1,3 @@
 usr/local/bin/chtcd usr/bin
 usr/local/bin/chtc-cli usr/bin
+debian/examples/chtc.conf etc/chtc

@@ -4,15 +4,16 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <primitives/deterministicmint.h>
+#include <zchtc/deterministicmint.h>
 #include "zchtctracker.h"
 #include "util.h"
 #include "sync.h"
 #include "main.h"
 #include "txdb.h"
-#include "walletdb.h"
-#include "zchtcwallet.h"
-#include "accumulators.h"
+#include "wallet/walletdb.h"
+#include "zchtc/accumulators.h"
+#include "zchtc/zchtcwallet.h"
+#include "witness.h"
 
 using namespace std;
 
@@ -107,6 +108,29 @@ bool CzCHTCTracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& me
             meta = it.second;
             return true;
         }
+    }
+
+    return false;
+}
+
+CoinWitnessData* CzCHTCTracker::GetSpendCache(const uint256& hashStake)
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.count(hashStake)) {
+        std::unique_ptr<CoinWitnessData> uptr(new CoinWitnessData());
+        mapStakeCache.insert(std::make_pair(hashStake, std::move(uptr)));
+        return mapStakeCache.at(hashStake).get();
+    }
+
+    return mapStakeCache.at(hashStake).get();
+}
+
+bool CzCHTCTracker::ClearSpendCache()
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.empty()) {
+        mapStakeCache.clear();
+        return true;
     }
 
     return false;
