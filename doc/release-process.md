@@ -100,22 +100,22 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 ### Build and sign CHTC Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../chtc/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../chtc/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../CHTC/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../CHTC/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/chtc-*.tar.gz build/out/src/chtc-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../chtc/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../chtc/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../CHTC/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../CHTC/contrib/gitian-descriptors/gitian-win.yml
     mv build/out/chtc-*-win-unsigned.tar.gz inputs/chtc-win-unsigned.tar.gz
     mv build/out/chtc-*.zip build/out/chtc-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../chtc/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../chtc/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../CHTC/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../CHTC/contrib/gitian-descriptors/gitian-osx.yml
     mv build/out/chtc-*-osx-unsigned.tar.gz inputs/chtc-osx-unsigned.tar.gz
     mv build/out/chtc-*.tar.gz build/out/chtc-*.dmg ../
 
-    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../chtc/contrib/gitian-descriptors/gitian-aarch64.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../chtc/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gbuild --memory 3000 --commit chtc=v${VERSION} ../CHTC/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../CHTC/contrib/gitian-descriptors/gitian-aarch64.yml
     mv build/out/chtc-*.tar.gz build/out/src/chtc-*.tar.gz ../
     popd
 

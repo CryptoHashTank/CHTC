@@ -136,6 +136,14 @@ public:
     int Zerocoin_Block_Double_Accumulated() const { return nBlockDoubleAccumulated; }
     CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
 
+    /** Staking Requirements */
+    int Stake_MinConfirmations() const {
+        return nStakeMinConfirmations;
+    }
+    CAmount Stake_MinAmount() const {
+        return nStakeMinAmount;
+    }
+
 protected:
     CChainParams() {}
 
@@ -204,6 +212,10 @@ protected:
     // fake serial attack
     int nFakeSerialBlockheightEnd = 0;
     CAmount nSupplyBeforeFakeSerial = 0;
+
+    /** Staking Requirements */
+    int nStakeMinConfirmations;
+    CAmount nStakeMinAmount;
 };
 
 /**

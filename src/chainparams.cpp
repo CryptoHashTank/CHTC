@@ -230,6 +230,9 @@ public:
         nZerocoinRequiredStakeDepth = 100; //The required confirmations for a zchtc to be stakable
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
+
+        nStakeMinConfirmations = 720;   // Required number of confirmations
+        nStakeMinAmount = 25 * COIN;    // Minimum required staking amount
     }
 
     const Checkpoints::CCheckpointData& Checkpoints() const
@@ -320,6 +323,9 @@ public:
         nStartMasternodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
+
+        nStakeMinConfirmations = 15;    // Required number of confirmations
+        nStakeMinAmount = 1000 * COIN;  // Minimum required staking amount
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {

@@ -15,6 +15,7 @@
 #include "stakeinput.h"
 #include "utilmoneystr.h"
 #include "zchtcchain.h"
+#include "spork.h"
 
 using namespace std;
 
@@ -303,13 +304,19 @@ bool CheckStake(const CDataStream& ssUniqueID, CAmount nValueIn, const uint64_t 
 
 bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockFrom, unsigned int& nTimeTx, uint256& hashProofOfStake)
 {
+
+    int nHeightStart = chainActive.Height();
     if(Params().NetworkID() != CBaseChainParams::REGTEST) {
         if (nTimeTx < nTimeBlockFrom)
             return error("CheckStakeKernelHash() : nTime violation");
 
-        if ((nTimeBlockFrom + nStakeMinAge > nTimeTx)) // Min age requirement
-            return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d",
-                         nTimeBlockFrom, nStakeMinAge, nTimeTx);
+        unsigned int nStakeMinAgeCurrent = nStakeMinAge;
+        if (IsSporkActive(SPORK_17_STAKE_REQ_AG) && nTimeBlockFrom >= GetSporkValue(SPORK_17_STAKE_REQ_AG)) {
+            nStakeMinAgeCurrent = nStakeMinAge2;
+        }
+        if ((nTimeBlockFrom + nStakeMinAgeCurrent > nTimeTx)) // Min age requirement
+            return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAgeCurrent=%d nTimeTx=%d",
+                         nTimeBlockFrom, nStakeMinAgeCurrent, nTimeTx);
 
     }
 
@@ -324,7 +331,6 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
 
     bool fSuccess = false;
     unsigned int nTryTime = 0;
-    int nHeightStart = chainActive.Height();
     int nHashDrift = 60;
     CDataStream ssUniqueID = stakeInput->GetUniqueness();
     CAmount nValueIn = stakeInput->GetValue();
