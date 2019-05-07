@@ -231,7 +231,7 @@ public:
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
 
-        nStakeMinConfirmations = 720;   // Required number of confirmations
+        nStakeMinConfirmations = 240;   // Required number of confirmations
         nStakeMinAmount = 25 * COIN;    // Minimum required staking amount
     }
 
